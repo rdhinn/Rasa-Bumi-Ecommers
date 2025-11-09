@@ -1,0 +1,69 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animasi */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+.animate-slideUp {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Splash screen */
+@keyframes splashFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+.splash-animate {
+  animation: splashFade 2.5s ease-in-out forwards;
+}
+
+@keyframes flyToCart {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.fly {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  animation: flyToCart 0.8s forwards;
+}
