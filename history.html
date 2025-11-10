@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Pesanan - Rasa Bumi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* Modal slide in */
+      .modal-show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.3s ease-out;
+      }
+      .modal-hide {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: all 0.3s ease-in;
+      }
+      /* Animasi qty change */
+      .qty-change {
+        transition: transform 0.2s ease;
+      }
+      .qty-change.add {
+        transform: scale(1.3);
+      }
+      .qty-change.sub {
+        transform: scale(0.8);
+      }
+      /* Animasi remove */
+      .fade-out {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- HEADER -->
+    <header
+      class="flex items-center px-4 gap-3 py-3 border-b border-gray-200 sticky top-0 bg-white z-50"
+    >
+      <a href="./index.html">
+        <i
+          class="fa-solid fa-arrow-left text-xl text-gray-600 cursor-pointer hover:text-amber-900 transition-colors"
+        ></i>
+      </a>
+      <h1 class="text-xl font-bold text-amber-900">Riwayat Pesanan</h1>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="px-4 pt-4 pb-20 max-w-md mx-auto">
+      <div id="orderHistoryContainer" class="flex flex-col gap-4"></div>
+    </main>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav
+      class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 shadow-inner flex justify-around items-center py-2"
+    >
+      <button
+        class="flex flex-col items-center text-gray-500"
+        onclick="location.href='index.html'"
+      >
+        <i class="fa-solid fa-house text-xl"></i>
+        <span class="text-xs">Home</span>
+      </button>
+      <button
+        class="flex flex-col items-center text-gray-500 relative"
+        data-page="cart"
+      >
+        <i class="fa-solid fa-cart-shopping text-xl"></i>
+        <span class="text-xs">Keranjang</span>
+        <span
+          id="cartBadge"
+          class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full hidden"
+          >0</span
+        >
+      </button>
+      <button class="flex flex-col items-center text-amber-600">
+        <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+        <span class="text-xs">Riwayat</span>
+      </button>
+    </nav>
+
+    <!-- CART MODAL -->
+    <div
+      id="cartModal"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden z-50 flex items-center justify-center"
+    >
+      <div
+        class="bg-white w-11/12 max-w-sm rounded-2xl p-5 shadow-lg transform transition-transform duration-300 ease-out"
+      >
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-lg font-semibold text-gray-800">Keranjang</h3>
+          <button
+            id="closeCart"
+            class="text-gray-500 hover:text-red-500 text-2xl"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div
+          id="cartItems"
+          class="flex flex-col gap-3 max-h-80 overflow-y-auto"
+        ></div>
+        <div
+          class="mt-4 flex justify-between items-center font-semibold text-gray-800"
+        >
+          <span>Total:</span>
+          <span id="cartTotal">Rp0</span>
+        </div>
+        <button
+          id="checkoutBtn"
+          class="mt-3 w-full bg-amber-600 text-white py-2 rounded-full font-semibold hover:bg-amber-700 transition"
+          onclick="location.href='checkout.html'"
+        >
+          Checkout
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // === ORDER HISTORY ===
+      const orderHistoryContainer = document.getElementById(
+        "orderHistoryContainer"
+      );
+      const orderHistory =
+        JSON.parse(localStorage.getItem("orderHistory")) || [];
+
+      function renderOrderHistory() {
+        orderHistoryContainer.innerHTML = "";
+        if (orderHistory.length === 0) {
+          orderHistoryContainer.innerHTML =
+            '<p class="text-gray-400 text-center mt-10">Belum ada pesanan</p>';
+          return;
+        }
+
+        orderHistory
+          .slice()
+          .reverse()
+          .forEach((order, idx) => {
+            const orderCard = document.createElement("div");
+            orderCard.className =
+              "bg-white rounded-2xl shadow p-4 flex flex-col gap-3 cursor-pointer";
+
+            const header = document.createElement("div");
+            header.className = "flex justify-between items-center";
+            header.innerHTML = `<span class="font-semibold text-gray-800">Tanggal: ${
+              order.date
+            }</span>
+                            <span class="text-amber-600 font-bold">Rp${order.total.toLocaleString(
+                              "id-ID"
+                            )}</span>`;
+
+            const collapseContent = document.createElement("div");
+            collapseContent.className = "collapse-content";
+
+            const paymentMethod = document.createElement("div");
+            paymentMethod.className = "text-gray-600 text-sm";
+            paymentMethod.innerHTML = `Metode: ${order.paymentMethod}`;
+
+            const recipient = document.createElement("div");
+            recipient.className = "text-gray-700 text-sm";
+            recipient.innerHTML = `<span class="font-semibold">Penerima:</span> ${order.name}<br>
+                               <span class="font-semibold">Alamat:</span> ${order.address}`;
+
+            const itemsList = document.createElement("div");
+            itemsList.className = "flex flex-col gap-2 mt-2";
+            order.items.forEach((item) => {
+              const itemDiv = document.createElement("div");
+              itemDiv.className =
+                "flex justify-between items-center bg-gray-50 p-2 rounded-lg";
+              const price = parseInt(item.price.replace(/\D/g, ""));
+              const subtotal = price * (item.qty || 1);
+              itemDiv.innerHTML = `<div class="flex items-center gap-2">
+                                 <img src="${
+                                   item.img
+                                 }" class="w-12 h-12 rounded-xl object-cover"/>
+                                 <div class="text-gray-700">
+                                   <p class="font-medium text-sm">${
+                                     item.title
+                                   }</p>
+                                   <p class="text-xs">Qty: ${item.qty || 1}</p>
+                                 </div>
+                               </div>
+                               <span class="font-semibold text-sm">Rp${subtotal.toLocaleString(
+                                 "id-ID"
+                               )}</span>`;
+              itemsList.appendChild(itemDiv);
+            });
+
+            const proofDiv = document.createElement("div");
+            proofDiv.className = "mt-2";
+            proofDiv.innerHTML = `<p class="text-gray-600 text-sm font-medium mb-1">Bukti Pembayaran:</p>
+                              <img src="${order.proof}" class="w-full h-48 object-contain rounded-xl shadow"/>`;
+
+            collapseContent.append(
+              paymentMethod,
+              recipient,
+              itemsList,
+              proofDiv
+            );
+            orderCard.append(header, collapseContent);
+
+            orderCard.addEventListener("click", () =>
+              collapseContent.classList.toggle("show")
+            );
+            orderHistoryContainer.appendChild(orderCard);
+          });
+      }
+
+      renderOrderHistory();
+
+      // === CART ===
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      function saveCart() {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
+
+      function updateCartBadge() {
+        const cartCount = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+        const cartBadge = document.getElementById("cartBadge");
+        if (cartCount > 0) {
+          cartBadge.textContent = cartCount;
+          cartBadge.classList.remove("hidden");
+        } else {
+          cartBadge.classList.add("hidden");
+        }
+      }
+
+      function animateToCart(imgSrc, startRect, product) {
+        const img = document.createElement("img");
+        img.src = imgSrc;
+        img.style.width = startRect.width + "px";
+        img.style.height = startRect.height + "px";
+        img.style.left = startRect.left + "px";
+        img.style.top = startRect.top + "px";
+        img.style.position = "fixed";
+        img.style.zIndex = 1000;
+        img.style.borderRadius = "8px";
+        img.style.transition =
+          "transform 0.8s ease-in-out, opacity 0.8s ease-in-out";
+        document.body.appendChild(img);
+
+        const cartBtn = document.querySelector('nav button[data-page="cart"]');
+        const cartRect = cartBtn.getBoundingClientRect();
+        const dx =
+          cartRect.left +
+          cartRect.width / 2 -
+          (startRect.left + startRect.width / 2);
+        const dy =
+          cartRect.top +
+          cartRect.height / 2 -
+          (startRect.top + startRect.height / 2);
+
+        requestAnimationFrame(() => {
+          img.style.transform = `translate(${dx}px, ${dy}px) scale(0.1)`;
+          img.style.opacity = "0";
+        });
+
+        img.addEventListener("transitionend", () => {
+          img.remove();
+          let cartItem = cart.find((p) => p.title === product.title);
+          if (cartItem) {
+            cartItem.qty = (cartItem.qty || 0) + 1;
+          } else {
+            product.qty = 1;
+            cart.push(product);
+          }
+          saveCart();
+          updateCartBadge();
+        });
+      }
+
+      const cartModal = document.getElementById("cartModal");
+      const cartItemsDiv = document.getElementById("cartItems");
+      const cartTotalEl = document.getElementById("cartTotal");
+
+      function renderCart() {
+        cartItemsDiv.innerHTML = "";
+        let total = 0;
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = `<p class="text-center text-gray-400">Keranjang kosong</p>`;
+          cartTotalEl.textContent = "Rp0";
+          updateCartBadge();
+          return;
+        }
+
+        cart.forEach((item, index) => {
+          total += parseInt(item.price.replace(/\D/g, "")) * (item.qty || 1);
+          const div = document.createElement("div");
+          div.className =
+            "flex items-center justify-between gap-3 p-2 border rounded-xl";
+
+          div.innerHTML = `<img src="${
+            item.img
+          }" class="w-16 h-16 rounded-xl" />
+          <div class="flex-1">
+            <h4 class="text-sm font-semibold">${item.title}</h4>
+            <p class="text-xs text-gray-500">${item.price}</p>
+            <div class="flex items-center mt-1 gap-2">
+              <button class="decrease text-gray-500 px-2 py-0.5 bg-gray-200 rounded transition hover:bg-gray-300">-</button>
+              <span class="qty">${item.qty || 1}</span>
+              <button class="increase text-gray-500 px-2 py-0.5 bg-gray-200 rounded transition hover:bg-gray-300">+</button>
+            </div>
+          </div>
+          <button class="remove text-red-500 text-lg hover:text-red-700 transition"><i class="fa-solid fa-trash"></i></button>`;
+
+          div.querySelector(".increase").addEventListener("click", () => {
+            item.qty = (item.qty || 1) + 1;
+            saveCart();
+            renderCart();
+          });
+          div.querySelector(".decrease").addEventListener("click", () => {
+            item.qty = (item.qty || 1) - 1;
+            if (item.qty <= 0) cart.splice(index, 1);
+            saveCart();
+            renderCart();
+          });
+          div.querySelector(".remove").addEventListener("click", () => {
+            cart.splice(index, 1);
+            saveCart();
+            renderCart();
+          });
+
+          cartItemsDiv.appendChild(div);
+        });
+
+        cartTotalEl.textContent = `Rp${total.toLocaleString("id-ID")}`;
+        updateCartBadge();
+      }
+
+      // buka/tutup modal
+      document
+        .querySelector('nav button[data-page="cart"]')
+        .addEventListener("click", () => {
+          renderCart();
+          cartModal.classList.replace("hidden", "flex");
+        });
+      document
+        .getElementById("closeCart")
+        .addEventListener("click", () =>
+          cartModal.classList.replace("flex", "hidden")
+        );
+      cartModal.addEventListener("click", (e) => {
+        if (e.target === cartModal)
+          cartModal.classList.replace("flex", "hidden");
+      });
+
+      // init
+      updateCartBadge();
+    </script>
+  </body>
+</html>

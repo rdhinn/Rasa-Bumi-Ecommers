@@ -107,9 +107,10 @@
         class="flex items-center justify-between px-4 py-3 border-b border-gray-100 sticky top-0 bg-white z-50"
       >
         <h1 class="text-xl font-bold text-amber-900">Rasa Bumi</h1>
-        <button id="menuBtn" class="text-2xl text-gray-700 focus:outline-none">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+        <button
+          id="menuBtn"
+          class="text-2xl text-gray-700 focus:outline-none"
+        ></button>
       </header>
 
       <!-- SEARCH & FILTER -->
@@ -145,7 +146,7 @@
           >
             <div>
               <p class="text-sm font-medium opacity-90">Flash Sale!</p>
-              <h2 class="text-xl font-bold mb-1">Ubi Cilembu Madu</h2>
+              <h2 class="text-xl font-bold mb-1">Ubi Brulee Original</h2>
               <p class="text-xs opacity-90 w-[85%]">
                 Diskon hingga 30% • Hari ini
               </p>
@@ -156,7 +157,7 @@
               </button>
             </div>
             <img
-              src="./image/produk/produk2.jpeg"
+              src="./image/produk/Ubi Brulee1.jpeg"
               class="rounded-xl shadow-md w-[150px]"
               alt="Ubi"
             />
@@ -166,9 +167,9 @@
           >
             <div>
               <p class="text-sm font-medium opacity-90">Promo Spesial!</p>
-              <h2 class="text-xl font-bold mb-1">Ubi Segar 1 Kg</h2>
+              <h2 class="text-xl font-bold mb-1">Ubi Brulee Mozzarella</h2>
               <p class="text-xs opacity-90 w-[85%]">
-                Langsung dari petani lokal 🌱
+                Dapatkan keju Mozzarella premium 🧀
               </p>
               <button
                 class="mt-3 bg-white text-green-700 font-semibold px-4 py-1.5 rounded-full text-sm shadow-sm hover:scale-105 transition"
@@ -177,7 +178,7 @@
               </button>
             </div>
             <img
-              src="./image/produk/produk3.jpeg"
+              src="./image/produk/Ubi Brulee2.jpeg"
               class="rounded-xl shadow-md w-[150px]"
               alt="Ubi Segar"
             />
@@ -186,9 +187,11 @@
             class="min-w-full snap-center bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-2xl p-5 flex justify-between items-center shadow-md"
           >
             <div>
-              <p class="text-sm font-medium opacity-90">Paket Hemat!</p>
-              <h2 class="text-xl font-bold mb-1">Combo Keluarga Rasa</h2>
-              <p class="text-xs opacity-90 w-[85%]">Varian ubi pilihan 🍠</p>
+              <p class="text-sm font-medium opacity-90">Paket Spesial!</p>
+              <h2 class="text-xl font-bold mb-1">
+                Ubi Brulee + Ice Cream Vanilla
+              </h2>
+              <p class="text-xs opacity-90 w-[85%]">Ubi panggang lembut 🍦</p>
               <button
                 class="mt-3 bg-white text-amber-700 font-semibold px-4 py-1.5 rounded-full text-sm shadow-sm hover:scale-105 transition"
               >
@@ -196,7 +199,7 @@
               </button>
             </div>
             <img
-              src="./image/produk/produk4.jpeg"
+              src="./image/produk/Ubi Brulee3.jpeg"
               class="rounded-xl shadow-md w-[150px]"
               alt="Paket"
             />
@@ -318,21 +321,21 @@
           </button>
           <button
             class="flex-shrink-0 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm category-btn"
-            data-category="Ubi Segar"
+            data-category="Ubi Brulee"
           >
-            Ubi Segar
+            Ubi Brulee
           </button>
           <button
             class="flex-shrink-0 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm category-btn"
             data-category="Siap Santap"
           >
-            Siap Santap
+            Ubi ...
           </button>
           <button
             class="flex-shrink-0 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm category-btn"
             data-category="Paket Hemat"
           >
-            Paket Hemat
+            Ubi ...
           </button>
         </div>
 
@@ -419,12 +422,49 @@
         <!-- Profile -->
         <button
           class="flex flex-col items-center text-gray-500"
-          onclick="location.href='profile.html'"
+          onclick="location.href='history.html'"
         >
-          <i class="fa-regular fa-user text-xl"></i>
-          <span class="text-xs">Profile</span>
+          <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+          <span class="text-xs">Riwayat</span>
         </button>
       </nav>
+
+      <!-- CART MODAL -->
+      <div
+        id="cartModal"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden items-center justify-center z-50"
+      >
+        <div
+          class="bg-white w-11/12 max-w-sm rounded-2xl p-5 shadow-lg animate-slideUp"
+        >
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-semibold text-gray-800">Keranjang</h3>
+            <button
+              id="closeCart"
+              class="text-gray-500 hover:text-red-500 text-2xl"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div
+            id="cartItems"
+            class="flex flex-col gap-3 max-h-80 overflow-y-auto"
+          ></div>
+          <div
+            class="mt-4 flex justify-between items-center font-semibold text-gray-800"
+          >
+            <span>Total:</span>
+            <span id="cartTotal">Rp0</span>
+          </div>
+          <button
+            id="checkoutBtn"
+            class="mt-3 w-full bg-amber-600 text-white py-2 rounded-full font-semibold hover:bg-amber-700 transition"
+            onclick="location.href='checkout.html'"
+          >
+            Checkout
+          </button>
+        </div>
+      </div>
     </div>
 
     <script src="./js/script.js"></script>

@@ -83,49 +83,49 @@ filterModal.addEventListener("click", (e) => {
 // === DATA PRODUK ===
 const productData = [
   {
-    title: "Ubi Segar (Kualitas Premium)",
-    img: "../image/produk/produk3.jpeg",
-    desc: "1 Kg Ubi Cilembu Segar Pilihan (Kualitas Premium) + 1 Pack Teh Rosella Kering Lokal + 1 Lembar Panduan Cara Memanggang Terbaik",
+    title: "Ubi Brulee Original",
+    img: "../image/produk/Ubi Brulee1.jpeg",
+    desc: "Nikmati sensasi kelezatan premium Ubi Brulee Original! Ubi pilihan yang dipanggang sempurna, bagian dalamnya lembut dan creamy, kemudian diberi topping krim manis rahasia dan dibakar (brulee) hingga lapisan atasnya menjadi karamel renyah yang menggoda. Perpaduan tekstur hangat, lembut, dan renyah dalam satu gigitan.",
     sold: 120,
     rating: "⭐⭐⭐⭐☆",
     price: "Rp25.000",
-    category: "Ubi Segar",
+    category: "Ubi Brulee",
   },
   {
-    title: "Paket Bekal Praktis",
-    img: "../image/produk/produk1.jpeg",
-    desc: "500 gr Ubi Cilembu Panggang (Sudah dipotong dan dikemas vacuum-sealed individual) + 1 pcs Garpu Kayu Ramah Lingkungan",
-    sold: 90,
-    rating: "⭐⭐⭐⭐⭐",
-    price: "Rp30.000",
-    category: "Paket Hemat",
-  },
-  {
-    title: "Combo Jelajah Rasa",
-    img: "../image/produk/produk5.jpeg",
-    desc: "Paket hemat combo dengan 3 pcs Ubi Cilembu Panggang (Medium) + Pack Keripik Ubi Manis (200 gr) + 1 Botol Mini Saus Keju Pedas/Saus Karamel",
-    sold: 75,
-    rating: "⭐⭐⭐⭐⭐",
-    price: "Rp20.000",
-    category: "Paket Hemat",
-  },
-  {
-    title: "Combo Keluarga Rasa",
-    img: "../image/produk/produk4.jpeg",
-    desc: "8 pcs Ubi Cilembu Panggang (Ukuran Besar/Jumbo) + 1 Botol Mini Saus Cokelat Aren Organik + Bonus: 2 Kemasan Dessicant untuk menjaga kelembapan ubi.",
-    sold: 200,
+    title: "Ubi Brulee Mozzarella",
+    img: "../image/produk/Ubi Brulee2.jpeg",
+    desc: "Hadirlah inovasi rasa yang tak terduga! Ubi Brulee Keju Mozza menggabungkan kelembutan ubi panggang manis dengan topping krim gurih yang dilapisi lelehan keju Mozzarella premium. Dibakar hingga keju meleleh sempurna dan menghasilkan tekstur yang kenyal dan sedikit smoky di atas krim manis.",
+    sold: 120,
     rating: "⭐⭐⭐⭐☆",
-    price: "Rp50.000",
-    category: "Siap Santap",
+    price: "Rp25.000",
+    category: "Ubi Brulee",
   },
   {
-    title: "Ubi Madu Spesial",
-    img: "../image/produk/produk2.jpeg",
-    desc: "4 pcs Ubi Cilembu Panggang (Ukuran Medium) + 1 sachet Sambal Cocolan Madu",
-    sold: 50,
-    rating: "⭐⭐⭐☆☆",
-    price: "Rp15.000",
-    category: "Siap Santap",
+    title: "Ubi Brulee + Ice Cream Vanilla",
+    img: "../image/produk/Ubi Brulee3.jpeg",
+    desc: "Rasakan pengalaman dessert yang memanjakan lidah! Ubi Brulee Es Krim menyajikan kehangatan ubi panggang yang lembut dengan lapisan karamel renyah, disempurnakan dengan satu scoop besar Es Krim Vanilla dingin di atasnya. Kombinasi rasa dan suhu yang kontras ini menciptakan sensasi yang benar-benar memuaskan.",
+    sold: 120,
+    rating: "⭐⭐⭐⭐☆",
+    price: "Rp25.000",
+    category: "Ubi Brulee",
+  },
+  {
+    title: "Ubi Brulee Coklat",
+    img: "../image/produk/Ubi Brulee4.jpeg",
+    desc: "Manjakan diri Anda dengan Ubi Brulee Cokelat Lumer! Ubi panggang pilihan yang lembut dengan lapisan brulee karamel renyah, kini disempurnakan dengan lelehan cokelat premium yang melimpah di atasnya. Perpaduan sempurna antara manis alami ubi, kerenyahan karamel, dan kekayaan rasa cokelat yang meleleh di setiap gigitan.",
+    sold: 120,
+    rating: "⭐⭐⭐⭐☆",
+    price: "Rp25.000",
+    category: "Ubi Brulee",
+  },
+  {
+    title: "Ubi Brulee Keju",
+    img: "../image/produk/Ubi Brulee5.jpeg",
+    desc: "Nikmati kehangatan klasik dengan sentuhan modern! Ubi Brulee Keju Klasik menghadirkan ubi panggang lembut dengan topping krim yang manis, lapisan karamel renyah, dan ditaburi dengan parutan keju cheddar premium yang melimpah. Perpaduan rasa manis dan gurih yang seimbang, menciptakan comfort food yang sempurna.",
+    sold: 120,
+    rating: "⭐⭐⭐⭐☆",
+    price: "Rp25.000",
+    category: "Ubi Brulee",
   },
 ];
 
@@ -262,39 +262,6 @@ function updateActive(page) {
   });
 }
 
-//animation
-let cartCount = 0;
-const cartBadge = document.getElementById("cartBadge");
-const cartBtn = document.querySelector('nav button[data-page="cart"]');
-
-function animateToCart(imgSrc, startRect) {
-  const img = document.createElement("img");
-  img.src = imgSrc;
-  img.style.width = startRect.width + "px";
-  img.style.height = startRect.height + "px";
-  img.style.left = startRect.left + "px";
-  img.style.top = startRect.top + "px";
-  img.classList.add("fly");
-  document.body.appendChild(img);
-
-  // Hitung jarak ke keranjang
-  const cartRect = cartBtn.getBoundingClientRect();
-  const dx =
-    cartRect.left + cartRect.width / 2 - (startRect.left + startRect.width / 2);
-  const dy =
-    cartRect.top + cartRect.height / 2 - (startRect.top + startRect.height / 2);
-
-  img.style.setProperty("--x", dx + "px");
-  img.style.setProperty("--y", dy + "px");
-
-  img.addEventListener("animationend", () => {
-    img.remove();
-    cartCount++;
-    cartBadge.textContent = cartCount;
-    cartBadge.classList.remove("hidden");
-  });
-}
-
 // Tambahkan listener untuk semua tombol beli di card dan modal
 document.querySelectorAll("button").forEach((btn) => {
   if (
@@ -323,6 +290,182 @@ document.querySelectorAll("button").forEach((btn) => {
     });
   }
 });
+
+// === CART LOCALSTORAGE ===
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cartCount = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+
+const cartBadge = document.getElementById("cartBadge");
+const cartBtn = document.querySelector('nav button[data-page="cart"]');
+
+// Tampilkan badge awal
+if (cartCount > 0) {
+  cartBadge.textContent = cartCount;
+  cartBadge.classList.remove("hidden");
+}
+
+// --- Animasi ke keranjang ---
+function animateToCart(imgSrc, startRect, product) {
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.style.width = startRect.width + "px";
+  img.style.height = startRect.height + "px";
+  img.style.left = startRect.left + "px";
+  img.style.top = startRect.top + "px";
+  img.style.position = "fixed";
+  img.style.zIndex = 1000;
+  img.style.borderRadius = "8px";
+  img.style.transition = "transform 0.8s ease-in-out, opacity 0.8s ease-in-out";
+  document.body.appendChild(img);
+
+  const cartRect = cartBtn.getBoundingClientRect();
+  const dx =
+    cartRect.left + cartRect.width / 2 - (startRect.left + startRect.width / 2);
+  const dy =
+    cartRect.top + cartRect.height / 2 - (startRect.top + startRect.height / 2);
+
+  requestAnimationFrame(() => {
+    img.style.transform = `translate(${dx}px, ${dy}px) scale(0.1)`;
+    img.style.opacity = "0";
+  });
+
+  img.addEventListener("transitionend", () => {
+    img.remove();
+
+    // Tambahkan produk ke cart
+    let cartItem = cart.find((p) => p.title === product.title);
+    if (cartItem) {
+      cartItem.qty = (cartItem.qty || 0) + 1;
+    } else {
+      product.qty = 0; // qty mulai dari 1
+      cart.push(product);
+    }
+    saveCart();
+    updateCartBadge();
+  });
+}
+
+// --- Simpan dan update ---
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+function updateCartBadge() {
+  cartCount = cart.reduce((acc, item) => acc + (item.qty || 1), 0);
+  if (cartCount > 0) {
+    cartBadge.textContent = cartCount;
+    cartBadge.classList.remove("hidden");
+  } else {
+    cartBadge.classList.add("hidden");
+  }
+}
+
+// --- Listener tombol beli ---
+document.querySelectorAll("button").forEach((btn) => {
+  if (
+    btn.textContent.includes("Beli Sekarang") ||
+    btn.textContent.includes("Pesan Sekarang")
+  ) {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      let imgEl, imgSrc, product;
+
+      if (btn.closest("#productDetailModal")) {
+        imgEl = document.getElementById("detailImage");
+        imgSrc = imgEl.src;
+        const title = document.getElementById("detailTitle").textContent;
+        product = productData.find((p) => p.title === title);
+      } else {
+        const card = btn.closest("div");
+        imgEl = card.querySelector("img");
+        imgSrc = imgEl.src;
+        const title = card.querySelector("h3").textContent;
+        product = productData.find((p) => p.title === title);
+      }
+
+      animateToCart(imgSrc, imgEl.getBoundingClientRect(), product);
+    });
+  }
+});
+
+// --- CART MODAL ---
+const cartModal = document.getElementById("cartModal");
+const cartItemsDiv = document.getElementById("cartItems");
+const cartTotalEl = document.getElementById("cartTotal");
+const closeCart = document.getElementById("closeCart");
+
+// buka modal
+cartBtn.addEventListener("click", () => {
+  renderCart();
+  cartModal.classList.replace("hidden", "flex");
+});
+closeCart.addEventListener("click", () =>
+  cartModal.classList.replace("flex", "hidden")
+);
+cartModal.addEventListener("click", (e) => {
+  if (e.target === cartModal) cartModal.classList.replace("flex", "hidden");
+});
+
+// render cart
+function renderCart() {
+  cartItemsDiv.innerHTML = "";
+  let total = 0;
+
+  if (cart.length === 0) {
+    cartItemsDiv.innerHTML = `<p class="text-center text-gray-400">Keranjang kosong</p>`;
+    cartTotalEl.textContent = "Rp0";
+    cartBadge.classList.add("hidden");
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    total += parseInt(item.price.replace(/\D/g, "")) * (item.qty || 1);
+    const div = document.createElement("div");
+    div.className =
+      "flex items-center justify-between gap-3 p-2 border rounded-xl";
+
+    div.innerHTML = `
+      <img src="${item.img}" class="w-16 h-16 rounded-xl" />
+      <div class="flex-1">
+        <h4 class="text-sm font-semibold">${item.title}</h4>
+        <p class="text-xs text-gray-500">${item.price}</p>
+        <div class="flex items-center mt-1 gap-2">
+          <button class="decrease text-gray-500 px-2 py-0.5 bg-gray-200 rounded transition hover:bg-gray-300">-</button>
+          <span class="qty">${item.qty || 1}</span>
+          <button class="increase text-gray-500 px-2 py-0.5 bg-gray-200 rounded transition hover:bg-gray-300">+</button>
+        </div>
+      </div>
+      <button class="remove text-red-500 text-lg hover:text-red-700 transition"><i class="fa-solid fa-trash"></i></button>
+    `;
+
+    // tombol +
+    div.querySelector(".increase").addEventListener("click", () => {
+      item.qty = (item.qty || 1) + 1;
+      saveCart();
+      renderCart();
+    });
+
+    // tombol -
+    div.querySelector(".decrease").addEventListener("click", () => {
+      item.qty = (item.qty || 1) - 1;
+      if (item.qty <= 0) cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    });
+
+    // tombol hapus
+    div.querySelector(".remove").addEventListener("click", () => {
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    });
+
+    cartItemsDiv.appendChild(div);
+  });
+
+  cartTotalEl.textContent = `Rp${total.toLocaleString("id-ID")}`;
+  updateCartBadge();
+}
 
 // === RENDER AWAL ===
 renderProducts(productData);
