@@ -88,7 +88,7 @@ const productData = [
     desc: "Nikmati sensasi kelezatan premium Ubi Brulee Original! Ubi pilihan yang dipanggang sempurna, bagian dalamnya lembut dan creamy, kemudian diberi topping krim manis rahasia dan dibakar (brulee) hingga lapisan atasnya menjadi karamel renyah yang menggoda. Perpaduan tekstur hangat, lembut, dan renyah dalam satu gigitan.",
     sold: 120,
     rating: "⭐⭐⭐⭐☆",
-    price: "Rp25.000",
+    price: "Rp13.000",
     category: "Ubi Brulee",
   },
   {
@@ -97,7 +97,7 @@ const productData = [
     desc: "Hadirlah inovasi rasa yang tak terduga! Ubi Brulee Keju Mozza menggabungkan kelembutan ubi panggang manis dengan topping krim gurih yang dilapisi lelehan keju Mozzarella premium. Dibakar hingga keju meleleh sempurna dan menghasilkan tekstur yang kenyal dan sedikit smoky di atas krim manis.",
     sold: 120,
     rating: "⭐⭐⭐⭐☆",
-    price: "Rp25.000",
+    price: "Rp18.000",
     category: "Ubi Brulee",
   },
   {
@@ -115,7 +115,7 @@ const productData = [
     desc: "Manjakan diri Anda dengan Ubi Brulee Cokelat Lumer! Ubi panggang pilihan yang lembut dengan lapisan brulee karamel renyah, kini disempurnakan dengan lelehan cokelat premium yang melimpah di atasnya. Perpaduan sempurna antara manis alami ubi, kerenyahan karamel, dan kekayaan rasa cokelat yang meleleh di setiap gigitan.",
     sold: 120,
     rating: "⭐⭐⭐⭐☆",
-    price: "Rp25.000",
+    price: "Rp18.000",
     category: "Ubi Brulee",
   },
   {
@@ -124,8 +124,17 @@ const productData = [
     desc: "Nikmati kehangatan klasik dengan sentuhan modern! Ubi Brulee Keju Klasik menghadirkan ubi panggang lembut dengan topping krim yang manis, lapisan karamel renyah, dan ditaburi dengan parutan keju cheddar premium yang melimpah. Perpaduan rasa manis dan gurih yang seimbang, menciptakan comfort food yang sempurna.",
     sold: 120,
     rating: "⭐⭐⭐⭐☆",
-    price: "Rp25.000",
+    price: "Rp15.000",
     category: "Ubi Brulee",
+  },
+  {
+    title: "Ubi Original (Kualiatas Premium)",
+    img: "../image/produk/ubi Original.jpeg",
+    desc: "1 Kg Ubi Cilembu Segar Pilihan (Kualitas Premium) + 1 Pack Teh Rosella Kering Lokal + 1 Lembar Panduan Cara Memanggang Terbaik",
+    sold: 120,
+    rating: "⭐⭐⭐⭐☆",
+    price: "Rp25.000",
+    category: "Ubi Original",
   },
 ];
 
